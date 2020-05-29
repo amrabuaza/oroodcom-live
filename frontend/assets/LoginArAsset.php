@@ -12,8 +12,8 @@ class LoginArAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/loginStyle.css',
-        'css/ar.css',
+        'css/login.css',
+        'css/main-ar.css',
     ];
     public $js = [
         'js/main.js',

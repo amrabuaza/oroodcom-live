@@ -12,8 +12,7 @@ class HomeAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/index.css',
-        'css/ss.css',
+        'css/home.css',
     ];
     public $js = [
         'js/main.js',

@@ -21,7 +21,7 @@ $this->title = 'Oroodcom';
 <div class="container">
     <?php Pjax::begin(); ?>
     <div class="form-group">
-        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), "method" => "post", 'class' => 'serachBtn btn btn-primary'])?>
+        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), "method" => "post", 'class' => 'filter-btn btn btn-primary'])?>
     </div>
 
     <?php
@@ -43,7 +43,7 @@ $this->title = 'Oroodcom';
 
             <div id="shopify-section-sidebar" class="shopify-section">
                 <div data-section-id="sidebar" data-section-type="sidebar-section">
-                    <nav class="grid__item small--text-center medium-up--one-fifth" role="navigation">
+                    <nav class="hide-on-mobile grid__item small--text-center medium-up--one-fifth" role="navigation">
                         <hr class="hr--small medium-up--hide">
                         <div id="SiteNav" class="site-nav" role="menu" style="">
                             <ul class="list--nav">
@@ -63,8 +63,6 @@ $this->title = 'Oroodcom';
                                     }
                                 } ?>
                             </ul>
-                            <ul class="list--inline social-links">
-                            </ul>
                         </div>
                         <hr class="medium-up--hide hr--small hr--border-bottom">
                     </nav>
@@ -77,7 +75,7 @@ $this->title = 'Oroodcom';
                 <div class="index-sections">
                     <!-- BEGIN content_for_index -->
                     <div id="shopify-section-featured-products" class="shopify-section">
-                        <hr class="medium-up--hide hr--clear hr--small">
+                        <hr class="medium-up--hide hr--clear hr--small hide-on-mobile">
                         <div class="featured-products">
                             <h2 class="small--text-center"><?=Yii::t(Constants::APP, 'site.index.items')?></h2>
                             <div class="grid grid--uniform" role="list">
@@ -90,7 +88,7 @@ $this->title = 'Oroodcom';
 
                                             ?>
                                             <div class="grid__item product medium-up--one-third small--one-half">
-                                                <div class=" text-center">
+                                                <div class="text-center">
                                                     <img class="item-pic img-fluid"
                                                          src="<?=ImageUrls::FRONTEND_UPLOADS_ITEMS . $obj->picture?>"
                                                          alt="">

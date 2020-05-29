@@ -12,9 +12,8 @@ class HomeArAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/index.css',
-        'css/ss.css',
-        'css/ar.css',
+        'css/home.css',
+        'css/main-ar.css',
     ];
     public $js = [
         'js/main.js',

@@ -12,8 +12,8 @@ class AppArAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
-        'css/ar.css',
+        'css/main.css',
+        'css/main-ar.css',
     ];
     public $js = [
         'js/main.js',

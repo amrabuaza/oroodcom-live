@@ -215,7 +215,7 @@ div.card-bodyhome {
         border: 1px solid #ccc;
         box-shadow: 2px 4px 10px #0d3349;
         height: 110px;
-        margin-bottom: 10px;
+        margin-bottom: 10%;
     }
 }
 
@@ -293,4 +293,10 @@ div.card-bodyhome {
 .grayText {
     color: #6b6b6b;
     margin-bottom: 5px;
+}
+
+@media only screen and (max-width: 749px) {
+    div#spaceup {
+        margin-top: -24% !important;
+    }
 }

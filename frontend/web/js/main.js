@@ -20,7 +20,7 @@ $(function () {
         $('.optionvalue-img:last').fileinput('clear');
     });
 
-    $(".serachBtn").click(function () {
+    $(".filter-btn").click(function () {
         $("#myModal").modal('show')
             .find("#myModalContent")
             .load($(this).attr('value'));
