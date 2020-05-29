@@ -51,9 +51,10 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'dashboard' => 'site/index',
-                'profile'=>'user/view',
-                'login'=>'site/login',
-                'my-profile'=>'user/view',
+                'profile' => 'user/view',
+                'login' => 'site/login',
+                'my-profile' => 'user/view',
+                'user/view/<id:\d+>' => 'user/view',
                 '<controller:[\w-]+>s' => '<controller>',
                 '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',
                 '<controller:[\w-]+>/<id:\d+>' => '<controller>/delete',

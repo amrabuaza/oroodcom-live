@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-            <form id="login-form" action="/oroodcom/advanced/backend/web/login" method="post" class="login100-form validate-form">
+            <form id="login-form" action="/login" method="post" class="login100-form validate-form">
                 <input type="hidden" name="_csrf-backend"
                        value="79a4kdrgz4OJ8CoZhOKSYSnjA6tYxqg4G1IqJON-AzuMu9fdi4if6N6nR2PsseUkTYdL7TyM8VReIG1Llh1vYw==">
                 <div class="form-group field-loginform-username required">

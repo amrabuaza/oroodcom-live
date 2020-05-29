@@ -19,25 +19,25 @@ use backend\models\Shop;
 
                     <div class="stat st-users">
                         Total Users
-                        <span><a href="user"><?= User::find()->count() ?></a> </span>
+                        <span><a href="user"><?=User::find()->count()?></a> </span>
                     </div>
                 </div>
                 <div class="col-md-3 p-b-mobile">
                     <div class="stat st-shops">
                         Total Shops
-                        <span><a href="shop"><?= Shop::find()->count() ?></a> </span>
+                        <span><a href="shop"><?=Shop::find()->count()?></a> </span>
                     </div>
                 </div>
                 <div class="col-md-3 p-b-mobile">
                     <div class="stat st-pending">
                         Pending Shops
-                        <span><a href="shop/index?status=inactive"><?= Shop::find()->where(["status" => "inactive"])->count() ?></a> </span>
+                        <span><a href="shop/index?status=inactive"><?=Shop::find()->where(["status" => "inactive"])->count()?></a> </span>
                     </div>
                 </div>
                 <div class="col-md-3 p-b-mobile">
                     <div class="stat st-items">
                         Total Pending category names
-                        <span><a href="pending-default-category-name"><?= PendingDefaultCategoryName::find()->where(["status" => "inactive"])->count() ?></a></span>
+                        <span><a href="pending-default-category-name"><?=PendingDefaultCategoryName::find()->where(["status" => "inactive"])->count()?></a></span>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@ use backend\models\Shop;
                                         if ($c == 6)
                                             break;
                                         echo "<li>" . $obj->username . ' <div class="pull-right">
-                                <a href="/oroodcom/advanced/backend/web/user/view?id=' . $obj->id . '"title="View" aria-label="View" data-pjax="0">
+                                <a href="/user/view?id=' . $obj->id . '"title="View" aria-label="View" data-pjax="0">
                                    
                                     <span class="glyphicon glyphicon-eye-open action"></span>
                                 </a>
@@ -92,7 +92,7 @@ use backend\models\Shop;
                                         if ($c == 6)
                                             break;
                                         echo "<li>" . $obj->name . ' <div class="pull-right">
-                                <a href="/oroodcom/advanced/backend/web/shop/view?id=' . $obj->id . '"title="View" aria-label="View" data-pjax="0">
+                                <a href="/shop/view?id=' . $obj->id . '"title="View" aria-label="View" data-pjax="0">
                                    
                                     <span class="glyphicon glyphicon-eye-open action"></span>
                                 </a>

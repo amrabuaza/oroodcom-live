@@ -37,7 +37,7 @@ $user = User::findOne(Yii::$app->user->id);
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="/oroodcom/advanced/backend/web/user/view" class="btn btn-default btn-flat">Profile</a>
+                                <a href="/my-profile" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <?=Html::a(
