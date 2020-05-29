@@ -52,17 +52,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <ul class="list-group">
                                     <div class="row">
                                         <li class="list-group-item col-sm-4"><a
-                                                    href="/category/index?id=<?=$obj->id?>"><?=Yii::t(Constants::APP, 'category.title')?></a>
+                                                    href="/category/index/<?=$obj->id?>"><?=Yii::t(Constants::APP, 'category.title')?></a>
                                         </li>
                                         <li class="list-group-item col-sm-4"><a
-                                                    href="/item/index?shop_id=<?=$obj->id?>"><?=Yii::t(Constants::APP, 'item.title')?></a>
+                                                    href="/item/index/<?=$obj->id?>"><?=Yii::t(Constants::APP, 'item.title')?></a>
                                         </li>
                                     </div>
                                 </ul>
 
                                 <div class="icons col-md-12 text-right" style="">
                                     <div id="spaceup">
-                                        <a href="/shop/view?id=<?=$obj->id?>"
+                                        <a href="/shop/view/<?=$obj->id?>"
                                            title="View" aria-label="View" data-pjax="0">
                                             <span class="glyphicon glyphicon-eye-open action"></span>
                                         </a>

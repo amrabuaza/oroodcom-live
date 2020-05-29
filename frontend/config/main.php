@@ -12,7 +12,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module',
         ],
 
@@ -49,9 +49,14 @@ return [
             'rules' => [
                 'home' => 'site/index',
                 'my-shops' => 'shop',
-                'login'=>'site/login',
-                'signup'=>'site/signup',
-                'my-profile'=>'user/view',
+                'login' => 'site/login',
+                'signup' => 'site/signup',
+                'my-profile' => 'user/view',
+                'shop/info/<id:\d+>' => 'shop/info',
+                'shop/view/<id:\d+>' => 'shop/view',
+                'category/index/<id:\d+>' => 'category/index',
+                'item/index/<shop_id:\d+>' => 'item/index',
+                'site/filter/<id:\d+>' => 'site/filter',
                 '<controller:[\w-]+>s' => '<controller>',
                 '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',
                 '<controller:[\w-]+>/<id:\d+>' => '<controller>/delete',

@@ -12,7 +12,11 @@ use yii\widgets\ActiveForm;
 ?>
     <div class="item-form">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(
+            [
+                'enableAjaxValidation' => true,
+            ]
+        ); ?>
 
         <?=
         $form->field($model, 'item_name')->widget(Select2::classname(), [
@@ -36,7 +40,7 @@ use yii\widgets\ActiveForm;
         ]);?>
 
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4 flex">
                 <?=$form->field($model, 'near_by_shop')->checkbox(['class' => 'nearByShop'], false)?>
             </div>
             <div class="col-lg-6">
@@ -50,9 +54,7 @@ use yii\widgets\ActiveForm;
         <div class="form-group">
             <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['class' => 'btn btn-success full-width'])?>
         </div>
-
         <?php ActiveForm::end(); ?>
-
     </div>
 
 <?=$this->registerJs(<<<JS

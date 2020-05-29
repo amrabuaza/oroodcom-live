@@ -21,7 +21,7 @@ $this->title = 'Oroodcom';
 <div class="container">
     <?php Pjax::begin(); ?>
     <div class="form-group">
-        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), "method" => "post", 'class' => 'serachBtn btn btn-primary'])?>
+        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), 'class' => 'serachBtn btn btn-primary'])?>
     </div>
 
     <?php
@@ -116,9 +116,6 @@ $this->title = 'Oroodcom';
                 </div>
             </main>
         </div>
-        <?=LinkPager::widget([
-            'pagination' => $pages,
-        ]);?>
         <hr>
     </div>
     <?php Pjax::end(); ?>

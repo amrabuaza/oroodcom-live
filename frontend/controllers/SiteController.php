@@ -22,6 +22,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -102,9 +103,10 @@ class SiteController extends Controller
         HelperMethods::setLanguageIntoSession($lang);
     }
 
-    public function actionCategoryItems($id)
+    public function actionFilter($id)
     {
         Yii::$app->language = Constants::DEFAULT_LANGUAGE;
+
         $name = Category::findOne($id)->name;
         $categories = Category::find()->where(['like', 'name', $name])->all();
 
@@ -115,7 +117,15 @@ class SiteController extends Controller
         }
 
         $query->joinWith("shop");
-        $items = $query->andWhere(["shop.status" => "active"])->all();
+        $items = $query->andWhere(["shop.status" => "active"]);
+
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+
+        $pages->defaultPageSize = 9;
+        $items = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
 
         $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
         Yii::$app->language = $language;
@@ -125,47 +135,51 @@ class SiteController extends Controller
             $this->layout = "home-en";
         }
 
-
         return $this->render('index', [
             'dataProvider' => $items,
+            'pages' => $pages,
         ]);
 
     }
 
-    public function actionSearchItem()
+    public function actionFilterItems()
     {
-        $model = new SearchItem();
+        if (Yii::$app->request->isAjax) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model = new SearchItem();
 
-            $searchModel = new ItemSearch();
-            $searchModel->name = $model->item_name;
-            $searchModel->shopRate = $model->shop_rate;
-            $searchModel->lowestPrice = $model->lowest_price;
-            $searchModel->nearByShop = $model->near_by_shop;
-            if ($model->near_by_shop == 1) {
-                $searchModel->longitude = $model->longitude;
-                $searchModel->latitude = $model->latitude;
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+                $searchModel = new ItemSearch();
+                $searchModel->name = $model->item_name;
+                $searchModel->shopRate = $model->shop_rate;
+                $searchModel->lowestPrice = $model->lowest_price;
+                $searchModel->nearByShop = $model->near_by_shop;
+                if ($model->near_by_shop == 1) {
+                    $searchModel->longitude = $model->longitude;
+                    $searchModel->latitude = $model->latitude;
+                }
+
+                $items = $searchModel->search(Yii::$app->request->queryParams)->models;
+
+
+                $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
+
+                if ($language == Constants::ARABIC_LANGUAGE) {
+                    $this->layout = "home-ar";
+                } else {
+                    $this->layout = "home-en";
+                }
+                return $this->render('filter-items', [
+                    'dataProvider' => $items,
+                ]);
             }
 
-            $items = $searchModel->search(Yii::$app->request->queryParams)->models;
-
-
-            $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
-
-            if ($language == Constants::ARABIC_LANGUAGE) {
-                $this->layout = "home-ar";
-            } else {
-                $this->layout = "home-en";
-            }
-            return $this->render('index', [
-                'dataProvider' => $items,
+            return $this->renderAjax('_serachFrom', [
+                'model' => $model,
             ]);
         }
-
-        return $this->renderAjax('_serachFrom', [
-            'model' => $model,
-        ]);
+        throw new NotFoundHttpException();
     }
 
 
@@ -188,7 +202,7 @@ class SiteController extends Controller
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
 
-
+        $pages->defaultPageSize = 9;
         $items = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
