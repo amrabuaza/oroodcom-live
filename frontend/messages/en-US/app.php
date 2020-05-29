@@ -16,6 +16,9 @@ $siteViews = [
 
     "site.login.welcome" => "WELCOME",
     'site.sign_up.email' => 'Email',
+
+    'site.views.error.message_error' => 'Oops, The Page you are looking for can\'t be found!',
+    'site.views.error.please_contact' => 'Please contact us if you think this is a server error. Thank you.',
 ];
 
 $shop = [

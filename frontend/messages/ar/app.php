@@ -16,6 +16,9 @@ $siteViews = [
 
     "site.login.welcome" => "أهلا بك",
     'site.sign_up.email' => 'البريد الإلكتروني',
+
+    'site.views.error.message_error' => 'حدث الخطأ أعلاه أثناء معالجة خادم الويب لطلبك.',
+    'site.views.error.please_contact' => 'يرجى الاتصال بنا إذا كنت تعتقد أن هذا خطأ في الخادم. شكرا جزيلا.',
 ];
 
 $shop = [

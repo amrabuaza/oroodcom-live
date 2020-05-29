@@ -3,11 +3,16 @@ body {
     height: 100%;
 }
 
+img {
+    outline: 0 none;
+    max-width: 100%;
+}
+
 input[type=text] {
     width: 30%;
 }
 
-table input{
+table input {
     width: 100% !important;
 }
 
@@ -252,20 +257,40 @@ div.card-bodyhome {
     width: 100% !important;
 }
 
-.text-center {
-    text-align: center;
-}
-
 .list-group-item {
     margin-left: 10%;
     margin-right: 3px;
 }
 
-.krajee-default.file-preview-frame .kv-file-content {
-    width: 40vh;
-    height: 20vh;
+.p-b-24 {
+    padding-bottom: 24px;
 }
 
-.p-b-24{
-    padding-bottom: 24px;
+.krajee-default.file-preview-frame .kv-file-content {
+    max-width: 95%;
+}
+
+.top-25 {
+    margin-top: 25px;
+}
+
+.center {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.min-h-77 {
+    min-height: 77vh;
+}
+
+.error-img {
+    width: 30%;
+    margin: auto !important;
+    display: grid;
+}
+
+.grayText {
+    color: #6b6b6b;
+    margin-bottom: 5px;
 }
