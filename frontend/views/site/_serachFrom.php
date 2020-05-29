@@ -22,9 +22,6 @@ use yii\widgets\ActiveForm;
         $form->field($model, 'item_name')->widget(Select2::classname(), [
             'data' => ArrayHelper::map(\backend\models\Item::find()->all(), 'name', 'name'),
             'language' => Yii::$app->language,
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
         ])->label(Yii::t(Constants::APP, 'item.search.fields.item_name'));
 
         ?>

@@ -687,7 +687,7 @@ div.card-bodyhome {
         margin-bottom: unset !important;
     }
 
-    .small--text-center{
+    .small--text-center {
         text-align: center !important;
         text-align: center !important;
         margin-bottom: 20%;
@@ -841,4 +841,12 @@ hr.hr--border-bottom {
     color: #333;
     text-decoration: none;
     background-color: transparent;
+}
+
+.list--nav {
+    list-style-type: none;
+}
+
+.field-searchitem-near_by_shop {
+    display: flex;
 }
