@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use common\helper\Constants;
@@ -15,13 +16,13 @@ AppArAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?=Yii::$app->language?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="<?=Yii::$app->charset?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?=Html::encode($this->title)?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -44,15 +45,15 @@ AppArAsset::register($this);
         ['label' => $label, 'options' => ['class' => 'lang-item']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.sign_up"), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.login"), 'url' => ['site/login']];
+        $menuItems[] = ['label' => Yii::t(Constants::APP, "site.view.sign_up"), 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => Yii::t(Constants::APP, "site.view.login"), 'url' => ['site/login']];
     } else {
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.my_shops"), 'url' => ['/shop']];
+        $menuItems[] = ['label' => Yii::t(Constants::APP, "site.view.my_shops"), 'url' => ['/shop']];
         $menuItems[] = [
             'label' => '' . Yii::$app->user->identity->username,
             'items' => [
-                ['label' => Yii::t(Constants::APP,"site.view.profile"), 'url' => '/oroodcom/advanced/frontend/web/my-profile'],
-                ['label' => Yii::t(Constants::APP, "nav.logout"), 'url' => '#','options' => ['class' => 'logout-btn']],
+                ['label' => Yii::t(Constants::APP, "site.view.profile"), 'url' => '/my-profile'],
+                ['label' => Yii::t(Constants::APP, "nav.logout"), 'url' => '#', 'options' => ['class' => 'logout-btn']],
             ],
         ];
     }
@@ -64,19 +65,19 @@ AppArAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
+        <?=Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        ])?>
+        <?=Alert::widget()?>
+        <?=$content?>
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?=Html::encode(Yii::$app->name)?> <?=date('Y')?></p>
 
-        <p class="pull-right"><?= "Powered by <a href='https://www.facebook.com/Qussai.gharaibeh1' target='_blank'>Qusai</a> & <a href='https://www.facebook.com/ammar.o.alkhateeb' target='_blank'>Ammar</a>" ?></p>
+        <p class="pull-right"><?="Powered by <a href='https://www.facebook.com/Qussai.gharaibeh1' target='_blank'>Qusai</a> & <a href='https://www.facebook.com/ammar.o.alkhateeb' target='_blank'>Ammar</a>"?></p>
     </div>
 </footer>
 

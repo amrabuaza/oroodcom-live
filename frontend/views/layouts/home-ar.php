@@ -52,7 +52,7 @@ HomeArAsset::register($this);
         $menuItems[] = [
             'label' => '' . Yii::$app->user->identity->username,
             'items' => [
-                ['label' => Yii::t(Constants::APP, "site.view.profile"), 'url' => '/oroodcom/advanced/frontend/web/my-profile'],
+                ['label' => Yii::t(Constants::APP, "site.view.profile"), 'url' => '/my-profile'],
                 ['label' => Yii::t(Constants::APP, "nav.logout"), 'url' => '#','options' => ['class' => 'logout-btn']],
             ],
         ];
