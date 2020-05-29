@@ -6,7 +6,7 @@ $(function () {
     });
 
     $('.logout-btn').click(function () {
-        $.post('/oroodcom/advanced/frontend/web/site/logout');
+        $.post('/site/logout');
     });
     $('.forgot-pass').click(function (event) {
         $(".pr-wrap").toggleClass("show-pass-reset");
@@ -34,7 +34,7 @@ $(function () {
 
     $(".lang-item").click(function () {
         $.post(
-            '/oroodcom/advanced/frontend/web/site/change-language', {},
+            '/site/change-language', {},
             function (data) {
                 location.reload();
             }

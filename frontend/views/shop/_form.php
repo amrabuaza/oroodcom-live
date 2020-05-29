@@ -5,6 +5,7 @@ use kartik\file\FileInput;
 use kartik\time\TimePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\helper\ImageUrls;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Shop */
@@ -31,7 +32,7 @@ use yii\widgets\ActiveForm;
     $initialPreview = [];
 
     if (!$model->isNewRecord) {
-        $pathImg = '../uploads/shops/' . $model->picture;
+        $pathImg = ImageUrls::FRONTEND_UPLOADS_SHOPS . $model->picture;
         $initialPreview[] = Html::img($pathImg, ['class' => 'upload-image']);
     } ?>
     <div class="shop-pic">

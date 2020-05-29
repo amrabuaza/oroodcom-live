@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use common\helper\Constants;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
+use common\helper\ImageUrls;
 
 /* @var $this yii\web\View */
 /* @return mixed
@@ -20,7 +21,7 @@ $this->title = 'Oroodcom';
 <div class="container">
     <?php Pjax::begin(); ?>
     <div class="form-group">
-        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['site/search-item']), 'class' => 'serachBtn btn btn-primary'])?>
+        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/search-item']), 'class' => 'serachBtn btn btn-primary'])?>
     </div>
 
     <?php
@@ -54,7 +55,7 @@ $this->title = 'Oroodcom';
                                     if (in_array($name, $added)) {
                                         ?>
                                         <li class="site-nav__item site-nav--active">
-                                            <a href="/oroodcom/advanced/frontend/web/site/category-items?id=<?=$category->id?>"
+                                            <a href="/site/category-items?id=<?=$category->id?>"
                                                class="site-nav__link" aria-current="page"><?=$name?></a>
                                         </li>
                                     <?php } else {
@@ -91,7 +92,7 @@ $this->title = 'Oroodcom';
                                             <div class="grid__item product medium-up--one-third small--one-half">
                                                 <div class=" text-center">
                                                     <img class="item-pic img-fluid"
-                                                         src="/oroodcom/advanced/frontend/web/uploads/items/<?=$obj->picture?>"
+                                                         src="<?=ImageUrls::FRONTEND_UPLOADS_ITEMS . $obj->picture?>"
                                                          alt="">
                                                     <div class="product__title"><a
                                                                 href="/admin/products"><?=$obj->name?></a></div>
@@ -102,7 +103,7 @@ $this->title = 'Oroodcom';
                                                 <div class="social-sharing__link"><?=$obj->description?></div>
                                                 <br/>
                                                 <div class="text-right"><a
-                                                            href="/oroodcom/advanced/frontend/web/shop/info?id=<?=$shop->id?>"> <?=$shop->name?></a>
+                                                            href="/shop/info?id=<?=$shop->id?>"> <?=$shop->name?></a>
                                                 </div>
 
                                             </div>

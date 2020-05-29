@@ -8,6 +8,7 @@ use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\helper\ImageUrls;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Item */
@@ -58,7 +59,7 @@ use yii\widgets\ActiveForm;
 
         if (!$model->isNewRecord) {
             echo Html::activeHiddenInput($model, "id");
-            $pathImg = '../uploads/items/' . $model->picture;
+            $pathImg = ImageUrls::FRONTEND_UPLOADS_ITEMS . $model->picture;
             $initialPreview[] = Html::img($pathImg, ['class' => 'upload-image']);
         }
         ?>
