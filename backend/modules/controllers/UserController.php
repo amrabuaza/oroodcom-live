@@ -2,10 +2,10 @@
 
 namespace backend\modules\controllers;
 
-use backend\modules\models\ApiHelper;
 use backend\modules\models\UserModels\ChangePassword;
 use backend\modules\models\UserModels\UserProfile;
 
+use common\helper\ApiHelper;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;

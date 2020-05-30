@@ -3,6 +3,7 @@
 namespace common\helper;
 
 use backend\models\Category;
+use backend\models\User;
 use backend\modules\models\Item;
 use Yii;
 use yii\db\Query;
@@ -15,6 +16,16 @@ abstract class ApiHelper
             return $request->headers['Accept-Language'];
         }
         return Yii::$app->language;
+    }
+
+    public static function getUserFromRequest($request)
+    {
+        return User::findOne(["access_token" => ApiHelper::getAccessTokenFromHeaders($request)]);
+    }
+
+    public static function getUserFromToken($token)
+    {
+        return User::findOne(["access_token" => $token]);
     }
 
     public static function getCategoriesDistinct()
