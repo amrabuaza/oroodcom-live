@@ -11,7 +11,7 @@ use yii\helpers\Html;
 $this->title = $name;
 
 if (Yii::$app->user->isGuest) {
-    $this->render('login');
+    Yii::$app->response->redirect(['site/login']);
 }
 
 ?>
