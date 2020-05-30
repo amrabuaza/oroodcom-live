@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-lg-12">
                                 <div class="brand wow fadeIn">
                                     <h1 class="brand_name">
-                                        <a href="/oroodcom/advanced/frontend/web/home">Oroodcom</a>
+                                        <a href="/home">Oroodcom</a>
                                         <hr/>
                                     </h1>
                                 </div>

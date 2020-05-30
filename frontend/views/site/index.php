@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\Category;
+use common\helper\ApiHelper;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -48,20 +49,14 @@ $this->title = 'Oroodcom';
                         <div id="SiteNav" class="site-nav" role="menu" style="">
                             <ul class="list--nav">
                                 <?php
-                                $added = [];
-                                $categories = Category::find()->all();
+                                $categories = ApiHelper::getCategoriesDistinct();
                                 foreach ($categories as $category) {
-                                    $name = $category->name;
-                                    if (in_array($name, $added)) {
-                                        ?>
-                                        <li class="site-nav__item site-nav--active">
-                                            <a href="/site/filter/<?=$category->id?>"
-                                               class="site-nav__link" aria-current="page"><?=$name?></a>
-                                        </li>
-                                    <?php } else {
-                                        $added[] = $name;
-                                    }
-                                } ?>
+                                    ?>
+                                    <li class="site-nav__item site-nav--active">
+                                        <a href="/site/filter/<?=$category->id?>"
+                                           class="site-nav__link" aria-current="page"><?=$category->name?></a>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
                         <hr class="medium-up--hide hr--small hr--border-bottom">
