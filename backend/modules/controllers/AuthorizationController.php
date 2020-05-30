@@ -50,6 +50,7 @@ class AuthorizationController extends Controller
         }
         $model->validate();
         return $model;
+
     }
 
     public function actionSignup()

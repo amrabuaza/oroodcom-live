@@ -2,8 +2,6 @@
 
 namespace backend\modules\models\UserModels;
 
-use backend\models\Country;
-use backend\models\UserPicture;
 use yii\base\Model;
 
 class UserProfile extends Model

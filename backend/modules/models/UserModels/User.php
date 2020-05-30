@@ -68,9 +68,9 @@ class User extends \yii\db\ActiveRecord
             [['username', 'email',], 'required'],
             [['status'], 'integer'],
             [['birth_date', 'created_at', 'updated_at'], 'safe'],
-            [['type', ], 'string'],
+            [['type',], 'string'],
             [['password', 'first_name', 'last_name', 'access_token'], 'string'],
-            [['username', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'email',  'access_token'], 'string', 'max' => 255],
+            [['username', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'access_token'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
@@ -102,7 +102,7 @@ class User extends \yii\db\ActiveRecord
 
     public function generateAccessToken()
     {
-        $this->access_token = bin2hex(random_bytes(32));
+        $this->access_token = Yii::$app->security->generateRandomString();
     }
 
 }

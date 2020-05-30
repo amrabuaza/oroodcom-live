@@ -24,6 +24,7 @@ class Item extends \yii\db\ActiveRecord
 {
     public $file;
     public $upload_image;
+
     /**
      * {@inheritdoc}
      */
@@ -38,10 +39,10 @@ class Item extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'name', 'price', 'old_price', 'description' ], 'required'],
+            [['name', 'price', 'old_price', 'description'], 'required'],
             [['id', 'category_id'], 'integer'],
             [['price', 'old_price'], 'number'],
-            [['name', 'description','picture'], 'string', 'max' => 255],
+            [['name', 'description', 'picture'], 'string', 'max' => 255],
             [['upload_image'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
             [['id'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -90,5 +91,10 @@ class Item extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    public function getShop()
+    {
+        return $this->hasOne(Shop::className(), ['id' => 'shop_id'])->via("category");
     }
 }

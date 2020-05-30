@@ -3,6 +3,9 @@
 namespace backend\modules\controllers;
 
 use backend\modules\models\Category;
+use common\helper\ApiHelper;
+use common\helper\Constants;
+use Yii;
 use yii\db\Query;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
@@ -11,9 +14,20 @@ use yii\rest\ActiveController;
 class CategoryController extends ActiveController
 {
 
-    public $modelClass = 'backend\modules\models\Category';
+    public $modelClass = 'backend\models\Category';
 
-    public function actions() {
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action))
+            return false;
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->language = ApiHelper::getLanguageFromHeaders(Yii::$app->request);
+        return true;
+    }
+
+    public function actions()
+    {
         $actions = parent::actions();
         unset($actions['index']);
         unset($actions['create']);
@@ -38,21 +52,21 @@ class CategoryController extends ActiveController
         ];
 
         $behaviors['authenticator'] = [
-            'class' =>  HttpBearerAuth::className(),
+            'class' => HttpBearerAuth::className(),
             'except' => ['options'],
         ];
 
         return $behaviors;
     }
 
-    public function actionGetAll()
+    public function actionIndex()
     {
-        $query = new Query();
-        $categories = $query->select(['name'])
-            ->from('category')
-            ->distinct()
-            ->all();
-        return $categories;
+        return ApiHelper::getCategoriesDistinct();
+    }
+
+    public function actionFilter($id)
+    {
+        return ApiHelper::filterItemsByCategoryId($id);
     }
 
 }
