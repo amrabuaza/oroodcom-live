@@ -3,6 +3,12 @@
 namespace backend\modules\models;
 
 
+use backend\models\Category;
+use backend\models\Shop;
+use backend\models\translations\ItemLanguage;
+use omgdef\multilingual\MultilingualBehavior;
+use Yii;
+
 /**
  * This is the model class for table "item".
  *
@@ -20,6 +26,7 @@ class Item extends \yii\db\ActiveRecord
 {
     public $file;
     public $upload_image;
+
     /**
      * {@inheritdoc}
      */
@@ -34,13 +41,44 @@ class Item extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'name', 'price', 'old_price', 'description' ], 'required'],
+            [['name', 'price', 'old_price', 'description'], 'required'],
             [['id', 'category_id'], 'integer'],
             [['price', 'old_price'], 'number'],
-            [['name', 'description','picture'], 'string', 'max' => 255],
+            [['name', 'description', 'picture'], 'string', 'max' => 255],
             [['upload_image'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
             [['id'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+        ];
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        $fields['picture'] = function ($model) {
+            return "http://oroodcom.com/uploads/items/" . $this->picture;
+        };
+
+        return $fields;
+    }
+
+    public function behaviors()
+    {
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params["languages"],
+                'languageField' => 'language',
+                'dynamicLangClass' => true,
+                'langClassName' => ItemLanguage::className(), // or namespace/for/a/class/PostLang
+                'defaultLanguage' => 'en-US',
+                'langForeignKey' => 'item_id',
+                'tableName' => "{{%item_language}}",
+                'attributes' => [
+                    'name',
+                    'description'
+                ]
+            ],
         ];
     }
 
@@ -72,26 +110,4 @@ class Item extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Shop::className(), ['id' => 'shop_id'])->via("category");
     }
-
-    public function fields()
-    {
-        $fields = parent::fields();
-
-        $fields['picture_url'] = function ($model) {
-            $uploadsUrl = "http://localhost/oroodcom/advanced/frontend/web/uploads/";
-            return $uploadsUrl . $this->picture;
-        };
-
-        $fields['shop'] = function ($model) {
-            $category = Category::findOne($this->category_id);
-            $shop = Shop::findOne($category->shop_id);
-            return $shop;
-        };
-
-        unset($fields['category_id']);
-        unset($fields['picture']);
-
-        return $fields;
-    }
-
 }
