@@ -4,11 +4,14 @@ namespace backend\modules\controllers;
 
 use backend\modules\models\SignupForm;
 use backend\modules\models\UserModels\User;
+use common\behaviors\ApiResponseBehavior;
 use common\models\LoginForm;
 use Yii;
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
 use yii\rest\Controller;
+use yii\web\Response;
 
 class AuthorizationController extends Controller
 {
@@ -33,6 +36,18 @@ class AuthorizationController extends Controller
                 'login' => ['POST'],
                 'signup' => ['POST']
             ]
+        ];
+
+        $behaviors['contentNegotiator']= [
+            'class' => ContentNegotiator::className(),
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+                'application/xml' => Response::FORMAT_XML,
+            ],
+        ];
+
+        $behaviors['apiResponse']= [
+            'class' => ApiResponseBehavior::className(),
         ];
 
         return $behaviors;

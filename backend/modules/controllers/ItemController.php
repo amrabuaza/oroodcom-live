@@ -5,14 +5,17 @@ namespace backend\modules\controllers;
 use backend\models\translations\ItemLanguage;
 use backend\modules\models\Item;
 use backend\modules\models\SearchModel;
+use common\behaviors\ApiResponseBehavior;
 use common\helper\ApiHelper;
 use common\helper\Constants;
 use frontend\models\SearchItem;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
+use yii\web\Response;
 
 class ItemController extends ActiveController
 {
@@ -65,6 +68,18 @@ class ItemController extends ActiveController
                 'get-latest-items' => ['GET'],
                 'filter' => ['POST'],
             ]
+        ];
+
+        $behaviors['contentNegotiator']= [
+            'class' => ContentNegotiator::className(),
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+                'application/xml' => Response::FORMAT_XML,
+            ],
+        ];
+
+        $behaviors['apiResponse']= [
+            'class' => ApiResponseBehavior::className(),
         ];
 
         return $behaviors;

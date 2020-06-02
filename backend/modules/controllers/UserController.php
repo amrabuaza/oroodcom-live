@@ -5,9 +5,13 @@ namespace backend\modules\controllers;
 use backend\modules\models\UserModels\ChangePassword;
 use backend\modules\models\UserModels\UserProfile;
 
+use common\behaviors\ApiResponseBehavior;
 use common\helper\ApiHelper;
+use yii\filters\RateLimiter;
+use yii\web\Response;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
@@ -57,6 +61,19 @@ class UserController extends ActiveController
                 'change-password' => ['PATCH'],
             ]
         ];
+
+        $behaviors['contentNegotiator']= [
+            'class' => ContentNegotiator::className(),
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+                'application/xml' => Response::FORMAT_XML,
+            ],
+        ];
+
+        $behaviors['apiResponse']= [
+            'class' => ApiResponseBehavior::className(),
+        ];
+
 
         return $behaviors;
     }

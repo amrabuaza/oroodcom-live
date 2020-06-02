@@ -3,13 +3,16 @@
 namespace backend\modules\controllers;
 
 use backend\modules\models\Category;
+use common\behaviors\ApiResponseBehavior;
 use common\helper\ApiHelper;
 use common\helper\Constants;
 use Yii;
 use yii\db\Query;
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+use yii\web\Response;
 
 class CategoryController extends ActiveController
 {
@@ -54,6 +57,18 @@ class CategoryController extends ActiveController
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
             'except' => ['options'],
+        ];
+
+        $behaviors['contentNegotiator']= [
+            'class' => ContentNegotiator::className(),
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+                'application/xml' => Response::FORMAT_XML,
+            ],
+        ];
+
+        $behaviors['apiResponse']= [
+            'class' => ApiResponseBehavior::className(),
         ];
 
         return $behaviors;

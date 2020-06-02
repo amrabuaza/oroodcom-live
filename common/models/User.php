@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\filters\RateLimitInterface;
 use yii\web\IdentityInterface;
 
 /**
@@ -22,7 +23,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface , RateLimitInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -222,5 +223,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
+    public function getRateLimit($request, $action)
+    {
+        // TODO: Implement getRateLimit() method.
+    }
 
+    public function loadAllowance($request, $action)
+    {
+        // TODO: Implement loadAllowance() method.
+    }
+
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        // TODO: Implement saveAllowance() method.
+    }
 }
