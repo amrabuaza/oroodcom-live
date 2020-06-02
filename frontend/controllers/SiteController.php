@@ -144,41 +144,36 @@ class SiteController extends Controller
 
     public function actionFilterItems()
     {
+        $model = new SearchItem();
         if (Yii::$app->request->isAjax) {
-
-            $model = new SearchItem();
-
-            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
-                $searchModel = new ItemSearch();
-                $searchModel->name = $model->item_name;
-                $searchModel->shopRate = $model->shop_rate;
-                $searchModel->lowestPrice = $model->lowest_price;
-                $searchModel->nearByShop = $model->near_by_shop;
-                if ($model->near_by_shop == 1) {
-                    $searchModel->longitude = $model->longitude;
-                    $searchModel->latitude = $model->latitude;
-                }
-
-                $items = $searchModel->search(Yii::$app->request->queryParams)->models;
-
-
-                $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
-
-                if ($language == Constants::ARABIC_LANGUAGE) {
-                    $this->layout = "home-ar";
-                } else {
-                    $this->layout = "home-en";
-                }
-                return $this->render('filter-items', [
-                    'dataProvider' => $items,
-                ]);
-            }
-
             return $this->renderAjax('_serachFrom', [
                 'model' => $model,
             ]);
+        } else if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $searchModel = new ItemSearch();
+            $searchModel->name = $model->item_name;
+            $searchModel->shopRate = $model->shop_rate;
+            $searchModel->lowestPrice = $model->lowest_price;
+            $searchModel->nearByShop = $model->near_by_shop;
+            if ($model->near_by_shop == 1) {
+                $searchModel->longitude = $model->longitude;
+                $searchModel->latitude = $model->latitude;
+            }
+            $items = $searchModel->search(Yii::$app->request->queryParams)->models;
+
+            $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
+
+            if ($language == Constants::ARABIC_LANGUAGE) {
+                $this->layout = "home-ar";
+            } else {
+                $this->layout = "home-en";
+            }
+
+            return $this->render('filter-items', [
+                'dataProvider' => $items,
+            ]);
         }
+
         throw new NotFoundHttpException();
     }
 
