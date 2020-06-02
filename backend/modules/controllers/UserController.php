@@ -72,9 +72,15 @@ class UserController extends ActiveController
         $model = new UserProfile();
         $model->access_token = ApiHelper::getAccessTokenFromHeaders(Yii::$app->request);
 
-        if ($model->load(Yii::$app->request->post(), '') && $model->update()) {
-            return $model;
+        if ($model->load(Yii::$app->request->post(), '')) {
+            $result = $model->update();
+            if (!$result['status']) {
+                Yii::$app->response->statusCode = 400;
+            }
+            return $result['user'];
+
         } else {
+            Yii::$app->response->statusCode = 400;
             $model->validate();
             return $model;
         }

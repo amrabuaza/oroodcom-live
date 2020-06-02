@@ -28,8 +28,12 @@ class UserProfile extends Model
 
     public function update()
     {
-        if ($this->validate()) {
 
+        if ($this->validate()) {
+            $result = [
+                'status' => false,
+                "user" => null
+            ];
             $user = User::findOne(['access_token' => $this->access_token]);
 
             $user->username = $this->username;
@@ -37,9 +41,20 @@ class UserProfile extends Model
             $user->last_name = $this->last_name;
             $user->email = $this->email;
 
-            return $user->save();
+            if ($user->save()) {
+                $flag = true;
+                $user = $this;
+            } else {
+                $user = $user->errors;
+                $flag = false;
+            }
+            return [
+                'status' => $flag,
+                "user" => $user
+            ];
+
         }
-        return false;
+        return ["status" => false];
     }
 
     public static function getUserByAccessToken($accessToken)
