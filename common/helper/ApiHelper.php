@@ -18,6 +18,13 @@ abstract class ApiHelper
         return Yii::$app->language;
     }
 
+    public static function getAccessTokenFromHeaders($request)
+    {
+        $authorization = $request->headers['authorization'];
+        $authorization = explode(" ", $authorization);
+        return $authorization[1];
+    }
+
     public static function getUserFromRequest($request)
     {
         return User::findOne(["access_token" => ApiHelper::getAccessTokenFromHeaders($request)]);
