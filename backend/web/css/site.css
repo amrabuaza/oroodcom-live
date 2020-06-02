@@ -3,6 +3,17 @@ body {
     height: 100%;
 }
 
+@media screen and (max-width: 767px) {
+    .table {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        min-height: 0.01%;
+        overflow-x: auto;
+        display: block;
+    }
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
