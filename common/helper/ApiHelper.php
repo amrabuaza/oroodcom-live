@@ -54,6 +54,24 @@ abstract class ApiHelper
         return $result;
     }
 
+    public static function getItemsNameDistinct()
+    {
+        $language = Yii::$app->language;
+        Yii::$app->language = Constants::DEFAULT_LANGUAGE;
+        $result = [];
+        $query = new Query();
+        $items = $query->select(['name'])
+            ->from('item')
+            ->distinct()
+            ->all();
+        Yii::$app->language = $language;
+        foreach ($items as $item) {
+            $tempItem = Item::findOne(['name' => $item['name']]);
+            $result[] = ["name" => $tempItem->name];
+        }
+        return $result;
+    }
+
     public static function filterItemsByCategoryId($id)
     {
         $language = Yii::$app->language;

@@ -70,7 +70,7 @@ class ItemController extends ActiveController
             ]
         ];
 
-        $behaviors['contentNegotiator']= [
+        $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
@@ -78,7 +78,7 @@ class ItemController extends ActiveController
             ],
         ];
 
-        $behaviors['apiResponse']= [
+        $behaviors['apiResponse'] = [
             'class' => ApiResponseBehavior::className(),
         ];
 
@@ -90,6 +90,11 @@ class ItemController extends ActiveController
     {
         $query = Item::find()->orderBy(['id' => SORT_DESC])->limit(10);
         return $query->joinWith("shop")->where(["shop.status" => "active"])->all();
+    }
+
+    public function actionGetItemsName()
+    {
+        return ApiHelper::getItemsNameDistinct();
     }
 
 
