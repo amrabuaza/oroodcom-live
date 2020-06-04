@@ -46,6 +46,7 @@ phpunit.phar
 /backend/web/error_log
 /frontend/web/error_log
 /frontend/web/admin
+/frontend/web/uploads
 
 /backend/web/uploads
 
