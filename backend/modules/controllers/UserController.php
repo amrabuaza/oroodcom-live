@@ -93,6 +93,7 @@ class UserController extends ActiveController
             $result = $model->update();
             if (!$result['status']) {
                 Yii::$app->response->statusCode = 400;
+                return ['messages'=>$result['user']];
             }
             return $result['user'];
 
