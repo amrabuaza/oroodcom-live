@@ -146,7 +146,7 @@ class ItemController extends ActiveController
                 return $searchModel->search(Yii::$app->request->queryParams)->models;
             } else {
                 $model->validate();
-                return $model;
+                return ['messages'=>$model];
             }
         } catch (\Exception $exception) {
             return $exception->getMessage();

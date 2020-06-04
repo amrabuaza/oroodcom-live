@@ -64,7 +64,7 @@ class AuthorizationController extends Controller
             return ['access_token' => $user->access_token];
         }
         $model->validate();
-        return $model;
+        return ['messages'=>$model];
 
     }
 
@@ -77,7 +77,7 @@ class AuthorizationController extends Controller
         } else {
             Yii::$app->response->statusCode = 422;
             $model->validate();
-            return $model;
+            return ['messages'=>$model];
         }
     }
 

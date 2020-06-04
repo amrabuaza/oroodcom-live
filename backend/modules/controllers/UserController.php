@@ -99,7 +99,7 @@ class UserController extends ActiveController
         } else {
             Yii::$app->response->statusCode = 400;
             $model->validate();
-            return $model;
+            return ['messages'=>$model];
         }
     }
 
@@ -113,13 +113,12 @@ class UserController extends ActiveController
                 return "done";
             } else if (!$model->validate()) {
                 Yii::$app->response->statusCode = 400;
-                return $model;
+                return ['messages'=>$model];
             } else {
                 throw new BadRequestHttpException("Old password not match !!");
             }
         }
-
         $model->validate();
-        return $model;
+        return ['messages'=>$model];
     }
 }
