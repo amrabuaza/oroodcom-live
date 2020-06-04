@@ -89,18 +89,18 @@ class UserController extends ActiveController
         $model = new UserProfile();
         $model->access_token = ApiHelper::getAccessTokenFromHeaders(Yii::$app->request);
 
-        if ($model->load(Yii::$app->request->post(), '')) {
+        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
             $result = $model->update();
             if (!$result['status']) {
                 Yii::$app->response->statusCode = 400;
-                return ['messages'=>$result['user']];
+                return ['messages' => $result['user']];
             }
             return $result['user'];
 
         } else {
             Yii::$app->response->statusCode = 400;
             $model->validate();
-            return ['messages'=>$model];
+            return ['messages' => $model];
         }
     }
 
@@ -114,12 +114,12 @@ class UserController extends ActiveController
                 return "done";
             } else if (!$model->validate()) {
                 Yii::$app->response->statusCode = 400;
-                return ['messages'=>$model];
+                return ['messages' => $model];
             } else {
                 throw new BadRequestHttpException("Old password not match !!");
             }
         }
         $model->validate();
-        return ['messages'=>$model];
+        return ['messages' => $model];
     }
 }
