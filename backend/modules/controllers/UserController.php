@@ -111,7 +111,10 @@ class UserController extends ActiveController
 
         if ($model->load(Yii::$app->request->post(), '')) {
             if ($model->save()) {
-                return "done";
+                return [
+                    'code' => 1,
+                    'message' => "done"
+                ];
             } else if (!$model->validate()) {
                 Yii::$app->response->statusCode = 400;
                 return ['messages' => $model];
