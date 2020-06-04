@@ -4,7 +4,6 @@ namespace backend\modules\models;
 
 
 use backend\models\Category;
-use backend\models\Shop;
 use backend\models\translations\ItemLanguage;
 use omgdef\multilingual\MultilingualBehavior;
 use Yii;
@@ -61,7 +60,11 @@ class Item extends \yii\db\ActiveRecord
         };
 
         $fields["shop"] = function ($model) {
-            return $this->shop;
+            $shop = $this->shop;
+            unset($shop->id);
+            unset($shop->owner_id);
+            unset($shop->status);
+            return $shop;
         };
 
         return $fields;

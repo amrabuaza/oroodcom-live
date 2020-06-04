@@ -2,7 +2,10 @@
 
 namespace backend\modules\models;
 
-use backend\modules\models\Category;
+use backend\models\Category;
+use backend\models\translations\ShopLanguage;
+use backend\models\User;
+use omgdef\multilingual\MultilingualBehavior;
 use Yii;
 
 /**
@@ -60,6 +63,26 @@ class Shop extends \yii\db\ActiveRecord
             return true;
         }
         return false;
+    }
+
+    public function behaviors()
+    {
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params["languages"],
+                'languageField' => 'language',
+                'dynamicLangClass' => true,
+                'langClassName' => ShopLanguage::className(), // or namespace/for/a/class/PostLang
+                'defaultLanguage' => 'en-US',
+                'langForeignKey' => 'shop_id',
+                'tableName' => "{{%shop_language}}",
+                'attributes' => [
+                    'name',
+                    'description'
+                ]
+            ],
+        ];
     }
 
     /**
@@ -120,8 +143,8 @@ class Shop extends \yii\db\ActiveRecord
     {
         $fields = parent::fields();
 
-        $fields['picture_url'] = function ($model) {
-            $uploadsUrl = "http://localhost/oroodcom/advanced/frontend/web/uploads/";
+        $fields['picture'] = function ($model) {
+            $uploadsUrl = "http://oroodcom.com/uploads/shops/";
             return $uploadsUrl . $this->picture;
         };
         unset($fields['owner_id']);
