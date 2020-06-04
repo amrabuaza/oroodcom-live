@@ -88,10 +88,10 @@ class ItemController extends ActiveController
 
     public function actionGetLatestItems()
     {
-        try{
+        try {
             $query = Item::find()->orderBy(['id' => SORT_DESC])->limit(10);
             return $query->joinWith("shop")->where(["shop.status" => "active"])->all();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
 
@@ -105,52 +105,49 @@ class ItemController extends ActiveController
 
     public function actionFilter()
     {
-        try {
-            $model = new SearchItem();
+        $model = new SearchItem();
 
-            if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
-                $searchModel = new SearchModel();
-                if (Yii::$app->language == Constants::ARABIC_LANGUAGE) {
-                    $lang = Yii::$app->language;
-                    Yii::$app->language = Constants::DEFAULT_LANGUAGE;
-                    $item = ItemLanguage::findOne(['like', 'name', $model->item_name]);
-                    if ($item != null) {
-                        $searchModel->name = Item::findOne($item->item_id)->name;
-                    } else {
-                        unset($searchModel->name);
-                    }
-
-                    Yii::$app->language = $lang;
+        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
+            $searchModel = new SearchModel();
+            if (Yii::$app->language == Constants::ARABIC_LANGUAGE) {
+                $lang = Yii::$app->language;
+                Yii::$app->language = Constants::DEFAULT_LANGUAGE;
+                $item = ItemLanguage::findOne(['like', 'name', $model->item_name]);
+                if ($item != null) {
+                    $searchModel->name = Item::findOne($item->item_id)->name;
                 } else {
-                    $searchModel->name = $model->item_name;
+                    unset($searchModel->name);
                 }
 
-                if (isset($model->shop_rate)) {
-                    $searchModel->shopRate = $model->shop_rate;
-                }
-
-                if (isset($model->lowest_price)) {
-                    $searchModel->lowestPrice = $model->lowest_price;
-                } else {
-                    $searchModel->lowestPrice = 0;
-                }
-
-                if (isset($model->longitude) && isset($model->latitude)) {
-                    $searchModel->longitude = $model->longitude;
-                    $searchModel->latitude = $model->latitude;
-                    $searchModel->nearByShop = 1;
-                } else {
-                    $searchModel->nearByShop = 0;
-                }
-
-                return $searchModel->search(Yii::$app->request->queryParams)->models;
+                Yii::$app->language = $lang;
             } else {
-                $model->validate();
-                return ['messages'=>$model];
+                $searchModel->name = $model->item_name;
             }
-        } catch (\Exception $exception) {
-            return $exception->getMessage();
+
+            if (isset($model->shop_rate)) {
+                $searchModel->shopRate = $model->shop_rate;
+            }
+
+            if (isset($model->lowest_price)) {
+                $searchModel->lowestPrice = $model->lowest_price;
+            } else {
+                $searchModel->lowestPrice = 0;
+            }
+
+            if (isset($model->longitude) && isset($model->latitude)) {
+                $searchModel->longitude = $model->longitude;
+                $searchModel->latitude = $model->latitude;
+                $searchModel->nearByShop = 1;
+            } else {
+                $searchModel->nearByShop = 0;
+            }
+
+            return ['items' => $searchModel->search(Yii::$app->request->queryParams)->models];
+        } else {
+            $model->validate();
+            return ['messages' => $model];
         }
+
 
     }
 

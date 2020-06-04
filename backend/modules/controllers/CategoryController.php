@@ -84,7 +84,7 @@ class CategoryController extends ActiveController
         if (\backend\models\Category::findOne($id) == null) {
             return ['field' => 'id', 'messages' => "not valid id"];
         }
-        return ApiHelper::filterItemsByCategoryId($id);
+        return ['items' => ApiHelper::filterItemsByCategoryId($id)];
     }
 
 }
