@@ -59,7 +59,7 @@ class CategoryController extends ActiveController
             'except' => ['options'],
         ];
 
-        $behaviors['contentNegotiator']= [
+        $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
@@ -67,7 +67,7 @@ class CategoryController extends ActiveController
             ],
         ];
 
-        $behaviors['apiResponse']= [
+        $behaviors['apiResponse'] = [
             'class' => ApiResponseBehavior::className(),
         ];
 
@@ -81,6 +81,9 @@ class CategoryController extends ActiveController
 
     public function actionFilter($id)
     {
+        if (\backend\models\Category::findOne($id) == null) {
+            return ['field' => 'id', 'messages' => "not valid id"];
+        }
         return ApiHelper::filterItemsByCategoryId($id);
     }
 
