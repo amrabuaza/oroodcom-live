@@ -21,6 +21,7 @@ use Yii;
  * @property int $category_id
  *
  * @property Category $category
+ * @property Shop $shop
  */
 class Item extends \yii\db\ActiveRecord
 {
@@ -57,6 +58,10 @@ class Item extends \yii\db\ActiveRecord
 
         $fields['picture'] = function ($model) {
             return "http://oroodcom.com/uploads/items/" . $this->picture;
+        };
+
+        $fields["shop"] = function ($model) {
+            return $this->shop;
         };
 
         return $fields;

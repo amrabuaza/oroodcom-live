@@ -62,7 +62,7 @@ class UserController extends ActiveController
             ]
         ];
 
-        $behaviors['contentNegotiator']= [
+        $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::className(),
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
@@ -70,7 +70,7 @@ class UserController extends ActiveController
             ],
         ];
 
-        $behaviors['apiResponse']= [
+        $behaviors['apiResponse'] = [
             'class' => ApiResponseBehavior::className(),
         ];
 

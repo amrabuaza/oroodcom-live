@@ -88,8 +88,13 @@ class ItemController extends ActiveController
 
     public function actionGetLatestItems()
     {
-        $query = Item::find()->orderBy(['id' => SORT_DESC])->limit(10);
-        return $query->joinWith("shop")->where(["shop.status" => "active"])->all();
+        try{
+            $query = Item::find()->orderBy(['id' => SORT_DESC])->limit(10);
+            return $query->joinWith("shop")->where(["shop.status" => "active"])->all();
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+
     }
 
     public function actionGetItemsName()
