@@ -96,7 +96,7 @@ class ItemController extends ActiveController
 
     public function actionGetItemsName()
     {
-        return ApiHelper::getItemsNameDistinct();
+        return ['names' => ApiHelper::getItemsNameDistinct()];
     }
 
 

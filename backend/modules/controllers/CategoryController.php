@@ -76,7 +76,7 @@ class CategoryController extends ActiveController
 
     public function actionIndex()
     {
-        return ApiHelper::getCategoriesDistinct();
+        return ['names' => ApiHelper::getCategoriesDistinct()];
     }
 
     public function actionFilter($id)
