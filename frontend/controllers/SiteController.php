@@ -115,6 +115,8 @@ class SiteController extends Controller
         foreach ($categories as $category) {
             $query->orWhere(["category_id" => $category->id]);
         }
+        $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
+        Yii::$app->language = $language;
 
         $query->joinWith("shop");
         $items = $query->andWhere(["shop.status" => "active"]);
@@ -127,8 +129,7 @@ class SiteController extends Controller
             ->limit($pages->limit)
             ->all();
 
-        $language = HelperMethods::getLanguageFromSessionOrSetIfNotExists();
-        Yii::$app->language = $language;
+
         if ($language == Constants::ARABIC_LANGUAGE) {
             $this->layout = "home-ar";
         } else {
