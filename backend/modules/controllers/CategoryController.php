@@ -50,7 +50,6 @@ class CategoryController extends ActiveController
             'class' => Cors::className(),
             'cors' => [
                 'Origin' => ['*'],
-                'Access-Control-Request-Method' => ['POST', 'GET', 'PATCH', 'PUT'],
                 'Access-Control-Request-Headers' => ['*'],
             ],
         ];
@@ -75,7 +74,7 @@ class CategoryController extends ActiveController
         return $behaviors;
     }
 
-    public function actionIndex()
+    public function actionGetNames()
     {
         return ['names' => ApiHelper::getCategoriesDistinct()];
     }
