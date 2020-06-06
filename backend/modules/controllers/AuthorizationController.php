@@ -61,7 +61,7 @@ class AuthorizationController extends Controller
             $user = User::findOne(["username" => $model->username]);
             $user->generateAccessToken();
             $user->save();
-            return ['access_token' => $user->access_token];
+            return ['access_token' => $user->access_token,'username'=>$user->username];
         }
         $model->validate();
         return ['messages'=>$model];
@@ -73,7 +73,7 @@ class AuthorizationController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post(), '') && $model->signup()) {
             $user = User::findOne(["username" => $model->username]);
-            return ['access_token' => $user->access_token];
+            return ['access_token' => $user->access_token,'username'=>$user->username];
         } else {
             Yii::$app->response->statusCode = 422;
             $model->validate();
