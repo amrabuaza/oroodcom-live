@@ -2,15 +2,13 @@
 
 namespace backend\modules\controllers;
 
-use backend\modules\models\Category;
 use common\behaviors\ApiResponseBehavior;
 use common\helper\ApiHelper;
-use common\helper\Constants;
 use Yii;
-use yii\db\Query;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
+use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
@@ -57,6 +55,14 @@ class CategoryController extends ActiveController
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::className(),
             'except' => ['options'],
+        ];
+
+        $behaviors['verbs'] = [
+            'class' => VerbFilter::className(),
+            'actions' => [
+                'get-names' => ['GET'],
+                'filter' => ['GET'],
+            ]
         ];
 
         $behaviors['contentNegotiator'] = [
