@@ -5,7 +5,6 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use common\helper\Constants;
-use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 use common\helper\ImageUrls;
 
@@ -21,7 +20,7 @@ $this->title = 'Oroodcom';
 <div class="container">
     <?php Pjax::begin(); ?>
     <div class="form-group">
-        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), 'class' => 'serachBtn btn btn-primary'])?>
+        <?=Html::submitButton(Yii::t(Constants::APP, 'site.index.search'), ['value' => Url::to(['/site/filter-items']), "method" => "post", 'class' => 'filter-btn btn btn-primary'])?>
     </div>
 
     <?php
