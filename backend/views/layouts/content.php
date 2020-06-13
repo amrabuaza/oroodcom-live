@@ -39,7 +39,7 @@ use dmstr\widgets\Alert;
     <div class="container">
         <p class="pull-left p-l-14perc">&copy; <?=Html::encode(Yii::$app->name)?> <?=date('Y')?></p>
 
-        <p class="pull-right"><?="Powered by <a href='https://www.facebook.com/Qussai.gharaibeh1' target='_blank'>Qusai</a> & <a href='https://www.facebook.com/ammar.o.alkhateeb' target='_blank'>Ammar</a>"?></p>
+        <p class="pull-right"><?="Powered by <a href='https://www.facebook.com/ammar.o.alkhateeb' target='_blank'>Ammar</a>"?></p>
     </div>
 </footer>
 <?php
