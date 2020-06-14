@@ -67,6 +67,7 @@ class ItemController extends ActiveController
             'actions' => [
                 'get-latest-items' => ['GET'],
                 'filter' => ['POST'],
+                'get-item-picture'=> ['GET'],
             ]
         ];
 
@@ -97,6 +98,11 @@ class ItemController extends ActiveController
     public function actionGetItemsName()
     {
         return ['names' => ApiHelper::getItemsNameDistinct()];
+    }
+
+    public function actionGetItemPicture($id)
+    {
+        return ['picture' => "http://oroodcom.com/uploads/items/" . Item::findOne($id)->picture];
     }
 
 
