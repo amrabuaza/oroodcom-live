@@ -144,7 +144,7 @@ class Shop extends \yii\db\ActiveRecord
         $fields = parent::fields();
 
         $fields['picture_url'] = function ($model) {
-            $uploadsUrl = "https://oroodcom.com/uploads/shops/";
+            $uploadsUrl = "http://oroodcom.com/uploads/shops/";
             return $uploadsUrl . $this->picture;
         };
         unset($fields['owner_id']);

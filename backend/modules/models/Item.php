@@ -56,7 +56,7 @@ class Item extends \yii\db\ActiveRecord
         $fields = parent::fields();
 
         $fields['picture'] = function ($model) {
-            return "https://oroodcom.com/uploads/items/" . $this->picture;
+            return "http://oroodcom.com/uploads/items/" . $this->picture;
         };
 
         $fields["shop"] = function ($model) {
