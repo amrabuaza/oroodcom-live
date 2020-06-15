@@ -14,6 +14,7 @@ use yii\filters\auth\HttpBearerAuth;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
@@ -53,6 +54,7 @@ class ItemController extends ActiveController
             'class' => Cors::className(),
             'cors' => [
                 'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
                 'Access-Control-Request-Headers' => ['*'],
             ],
         ];
@@ -67,17 +69,17 @@ class ItemController extends ActiveController
             'actions' => [
                 'get-latest-items' => ['GET'],
                 'filter' => ['POST'],
-                'get-item-picture'=> ['GET'],
+                'get-item-picture' => ['GET'],
             ]
         ];
 
-        $behaviors['contentNegotiator'] = [
-            'class' => ContentNegotiator::className(),
-            'formats' => [
-                'application/json' => Response::FORMAT_JSON,
-                'application/xml' => Response::FORMAT_XML,
-            ],
-        ];
+//        $behaviors['contentNegotiator'] = [
+//            'class' => ContentNegotiator::className(),
+//            'formats' => [
+//                'application/json' => Response::FORMAT_JSON,
+//                'application/xml' => Response::FORMAT_XML,
+//            ],
+//        ];
 
         $behaviors['apiResponse'] = [
             'class' => ApiResponseBehavior::className(),
@@ -102,7 +104,16 @@ class ItemController extends ActiveController
 
     public function actionGetItemPicture($id)
     {
-        return ['picture' => "http://oroodcom.com/uploads/items/" . Item::findOne($id)->picture];
+        $pictureUrl = Item::findOne($id)->picture;
+        $contentType = 'image/jpeg';
+        $filePath = "http://oroodcom.com/uploads/items/" . $pictureUrl;
+        $response = Yii::$app->getResponse();
+        $response->headers->set('Content-Type', $contentType);
+        $response->format = Response::FORMAT_RAW;
+        if (!is_resource($response->stream = fopen($filePath, 'r'))) {
+            throw new \yii\web\ServerErrorHttpException('file access failed: permission deny');
+        }
+        return $response->send();
     }
 
 
