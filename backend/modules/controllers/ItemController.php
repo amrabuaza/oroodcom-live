@@ -116,6 +116,20 @@ class ItemController extends ActiveController
         return $response->send();
     }
 
+    public function actionGetShopPicture($id)
+    {
+        $pictureUrl = Item::findOne($id)->shop->picture;
+        $contentType = 'image/jpeg';
+        $filePath = "http://oroodcom.com/uploads/shops/" . $pictureUrl;
+        $response = Yii::$app->getResponse();
+        $response->headers->set('Content-Type', $contentType);
+        $response->format = Response::FORMAT_RAW;
+        if (!is_resource($response->stream = fopen($filePath, 'r'))) {
+            throw new \yii\web\ServerErrorHttpException('file access failed: permission deny');
+        }
+        return $response->send();
+    }
+
 
     public function actionFilter()
     {
