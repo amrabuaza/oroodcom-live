@@ -64,13 +64,18 @@ class ShopController extends Controller
     }
 
     public function actionActivate($id){
-        $model = $this->findModel($id);
-        $model->status ='active';
-        $model->save();
+        try{
+            $model = $this->findModel($id);
+            $model->status ='active';
+            $model->save();
 
-        return $this->render('view', [
-            'model' => $model,
-        ]);
+            return $this->render('view', [
+                'model' => $model,
+            ]);
+        }catch (\Exception $exception){
+            die($exception->getMessage());
+        }
+
     }
 
     public function actionDeactivate($id){

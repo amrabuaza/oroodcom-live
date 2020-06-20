@@ -15,10 +15,8 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property string $name_ar
  * @property int $phone_number
  * @property string $description
- * @property string $description_ar
  * @property string $latitude
  * @property string $longitude
  * @property string $open_at
@@ -76,7 +74,7 @@ class Shop extends \yii\db\ActiveRecord
             [['status'], 'string'],
             [['address'], 'safe'],
             [['upload_image'], 'safe'],
-            [['name', 'name_ar', 'description_ar', 'description', 'latitude', 'longitude', 'open_at', 'close_at', 'picture'], 'string', 'max' => 255],
+            [['name',  'description', 'latitude', 'longitude', 'open_at', 'close_at', 'picture'], 'string', 'max' => 255],
             [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
         ];
     }
@@ -89,10 +87,8 @@ class Shop extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => Yii::t(Constants::APP, "shop.fields.name"),
-            'name_ar' => Yii::t(Constants::APP, "shop.fields.name_ar"),
             'phone_number' => Yii::t(Constants::APP, "shop.fields.phone_number"),
             'description' => Yii::t(Constants::APP, "shop.fields.description"),
-            'description_ar' => Yii::t(Constants::APP, "shop.fields.description_ar"),
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'open_at' => Yii::t(Constants::APP, "shop.fields.open_at"),
