@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\translations\Shop;
 use Yii;
-use backend\models\Shop;
 use backend\models\ShopSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
