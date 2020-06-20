@@ -26,7 +26,7 @@ class ShopController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['create','delete','index','view','update','activate','deactivate'],
+                        'actions' => ['create', 'delete', 'index', 'view', 'update', 'activate', 'deactivate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -42,7 +42,7 @@ class ShopController extends Controller
     public function actionIndex($status = null)
     {
         $searchModel = new ShopSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$status);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $status);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -63,24 +63,21 @@ class ShopController extends Controller
         ]);
     }
 
-    public function actionActivate($id){
-        try{
-            $model = $this->findModel($id);
-            $model->status ='active';
-            $model->save();
+    public function actionActivate($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 'active';
+        $model->save();
 
-            return $this->render('view', [
-                'model' => $model,
-            ]);
-        }catch (\Exception $exception){
-            die($exception->getMessage());
-        }
-
+        return $this->render('view', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionDeactivate($id){
+    public function actionDeactivate($id)
+    {
         $model = $this->findModel($id);
-        $model->status ='inactive';
+        $model->status = 'inactive';
         $model->save();
 
         return $this->render('view', [
@@ -105,7 +102,7 @@ class ShopController extends Controller
             }
 
 
-            if($model->save()){
+            if ($model->save()) {
                 if ($image != null) {
                     $image->saveAs('/oroodcom/advanced/frontend/web/uploads/' . $model->picture);
                 }
@@ -129,7 +126,7 @@ class ShopController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
 
             $image = UploadedFile::getInstanceByName("Shop[upload_image]");
             if ($image != null) {
@@ -137,12 +134,12 @@ class ShopController extends Controller
                 $model->picture = $modelName . $image->baseName . '.' . $image->extension;
             }
 
-            if($model->save()){
+            if ($model->save()) {
                 if ($image != null) {
                     $image->saveAs('/oroodcom/advanced/frontend/web/uploads/' . $model->picture);
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else{
+            } else {
                 print_r($model->errors);
                 die("x");
             }
