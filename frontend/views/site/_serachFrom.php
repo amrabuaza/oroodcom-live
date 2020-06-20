@@ -55,12 +55,12 @@ use yii\widgets\ActiveForm;
     </div>
 
 <?=$this->registerJs(<<<JS
-    $("#serachitem-near_by_shop").change(function() {
+    $("#searchitem-near_by_shop").change(function() {
         if(this.checked) {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    $("#serachitem-longitude").val(position.coords.longitude);
-                    $("#serachitem-latitude").val(position.coords.latitude);
+                    $("#searchitem-longitude").val(position.coords.longitude);
+                    $("#searchitem-latitude").val(position.coords.latitude);
                 });
             } else {
                 alert("Browser doesn't support geolocation!");
