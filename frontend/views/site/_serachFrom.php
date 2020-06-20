@@ -56,9 +56,12 @@ use yii\widgets\ActiveForm;
 
 <?=$this->registerJs(<<<JS
     $("#searchitem-near_by_shop").change(function() {
+        console.log("near by");
         if(this.checked) {
+            console.log("near by checked");
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
+                    console.log(position.coords.longitude);
                     $("#searchitem-longitude").val(position.coords.longitude);
                     $("#searchitem-latitude").val(position.coords.latitude);
                 });
