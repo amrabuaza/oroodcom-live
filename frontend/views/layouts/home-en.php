@@ -30,40 +30,6 @@ HomeAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $label = "English";
-    if (Yii::$app->language == "en-US") {
-        $label = "العربية";
-    }
-    $menuItems = [
-        ['label' => $label, 'options' => ['class' => 'lang-item']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.sign_up"), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.login"), 'url' => ['site/login']];
-    } else {
-        $menuItems[] = ['label' => Yii::t(Constants::APP,"site.view.my_shops"), 'url' => ['/shop']];
-        $menuItems[] = [
-            'label' => '' . Yii::$app->user->identity->username,
-            'items' => [
-                ['label' => Yii::t(Constants::APP,"site.view.profile"), 'url' => '/my-profile'],
-                ['label' => Yii::t(Constants::APP, "nav.logout"), 'url' => '#','options' => ['class' => 'logout-btn']],
-            ],
-        ];
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
 
     <div class="container">
         <?=Breadcrumbs::widget([
@@ -76,9 +42,7 @@ HomeAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?=Html::encode(Yii::$app->name)?> <?=date('Y')?></p>
 
-        <p class="pull-right"><?="Powered by  <a href='https://www.facebook.com/ammar.o.alkhateeb' target='_blank'>Ammar</a>"?></p>
     </div>
 </footer>
 <?php

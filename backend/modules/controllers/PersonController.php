@@ -63,7 +63,7 @@ class PersonController extends ActiveController
 
     public function actionGetChildsByParentId($id)
     {
-        return SinglePerson::find()->where(["id" => $id])->all();
+        return SinglePerson::find()->where(["parent_id" => $id])->all();
     }
 
     public function actionCreate()
@@ -81,7 +81,7 @@ class PersonController extends ActiveController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post(),"") && $model->save()) {
+        if ($model->load(Yii::$app->request->post(), "") && $model->save()) {
             return $model;
         }
         $model->validate();
@@ -91,6 +91,17 @@ class PersonController extends ActiveController
     public function actionView($id)
     {
         return $this->findModel($id);
+    }
+
+    public function actionFullView($id)
+    {
+        $model = SinglePerson::findOne($id);
+
+        $childs = $this->actionGetChildsByParentId($id);
+        return [
+            "person" => $model,
+            "childs" => $childs
+        ];
     }
 
     public function actionDeleteChild($id)

@@ -12,10 +12,10 @@ class HomeAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/home.css',
+        'css/family-style.css',
     ];
     public $js = [
-        'js/main.js',
+        'js/fetch-data.js',
         'js/jquery-ui.js'
     ];
     public $depends = [
