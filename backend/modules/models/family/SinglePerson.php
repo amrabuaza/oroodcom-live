@@ -1,7 +1,10 @@
 <?php
 
-namespace backend\models\family;
+namespace backend\modules\models\family;
 
+use backend\models\family\PersonComment;
+use backend\models\family\PersonImage;
+use backend\models\family\PersonUrl;
 use Yii;
 
 /**
@@ -17,13 +20,13 @@ use Yii;
  * @property int $is_root
  * @property int|null $parent_id
  *
- * @property Person $parent
+ * @property \backend\models\family\Person $parent
  * @property Person[] $people
  * @property PersonComment $personComment
  * @property PersonImage[] $personImages
  * @property PersonUrl[] $personUrls
  */
-class Person extends \yii\db\ActiveRecord
+class SinglePerson extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

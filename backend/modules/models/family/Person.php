@@ -1,19 +1,30 @@
 <?php
 
-namespace backend\modules\family;
+namespace backend\modules\models\family;
+
+use backend\models\family\PersonComment;
+use backend\models\family\PersonImage;
+use backend\models\family\PersonUrl;
+use Yii;
 
 /**
  * This is the model class for table "person".
  *
  * @property int $id
  * @property string $name
- * @property string $mother_name
- * @property string $birth_date
- * @property string $nickname
+ * @property string|null $mother_name
+ * @property string|null $birth_date
+ * @property string|null $avatar
+ * @property string|null $nickname
  * @property int $is_live
  * @property int $is_root
- * @property int $parent_id
+ * @property int|null $parent_id
  *
+ * @property \backend\models\family\Person $parent
+ * @property Person[] $people
+ * @property PersonComment $personComment
+ * @property PersonImage[] $personImages
+ * @property PersonUrl[] $personUrls
  */
 class Person extends \yii\db\ActiveRecord
 {
@@ -31,26 +42,91 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['id', 'is_live', 'is_root', 'parent_id'], 'integer'],
-            [['name', 'mother_name', 'nickname'], 'string', 'max' => 255],
+            [['name', 'is_live', 'is_root'], 'required'],
             [['birth_date'], 'safe'],
-            [['id'], 'unique'],
+            [['is_live', 'is_root', 'parent_id'], 'integer'],
+            [['name', 'mother_name', 'avatar', 'nickname'], 'string', 'max' => 255],
+            [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => "Name",
-            'mother_name' => 'Mother Name',
-            'is_live' => 'Is Live',
-            'is_root' => 'Is Root',
-            'birth_date' => 'Birth Date',
-            'parent_id' => 'Parent',
-            'nickname' => 'nickname',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'mother_name' => Yii::t('app', 'Mother Name'),
+            'birth_date' => Yii::t('app', 'Birth Date'),
+            'avatar' => Yii::t('app', 'Avatar'),
+            'nickname' => Yii::t('app', 'Nickname'),
+            'is_live' => Yii::t('app', 'Is Live'),
+            'is_root' => Yii::t('app', 'Is Root'),
+            'parent_id' => Yii::t('app', 'Parent ID'),
         ];
     }
 
+    /**
+     * Gets query for [[Parent]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(Person::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * Gets query for [[People]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPeople()
+    {
+        return $this->hasMany(Person::className(), ['parent_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PersonComment]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonComment()
+    {
+        return $this->hasOne(PersonComment::className(), ['id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PersonImages]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonImages()
+    {
+        return $this->hasMany(PersonImage::className(), ['person_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PersonUrls]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonUrls()
+    {
+        return $this->hasMany(PersonUrl::className(), ['person_id' => 'id']);
+    }
+
+    public function fields()
+    {
+        $fields = parent::fields();
+        $fields['chileds'] = function ($model) {
+            return $this->people;
+        };
+        $fields["id"] = function ($model) {
+            return $model->id;
+        };
+        return $fields;
+    }
 }
