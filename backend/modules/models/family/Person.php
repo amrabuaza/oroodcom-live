@@ -121,7 +121,7 @@ class Person extends \yii\db\ActiveRecord
     public function fields()
     {
         $fields = parent::fields();
-        $fields['chileds'] = function ($model) {
+        $fields['childs'] = function ($model) {
             return $this->people;
         };
         $fields["id"] = function ($model) {
