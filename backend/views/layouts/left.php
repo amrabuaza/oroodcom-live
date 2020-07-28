@@ -23,12 +23,13 @@ $user = User::findOne(Yii::$app->user->id);
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Oroodcom Dashbord', 'options' => ['class' => 'header']],
-                    ['label' => 'Users', 'icon' => 'users', 'url' => ['/user']],
-                    ['label' => 'Shops', 'icon' => 'shopping-cart', 'url' => ['/shop'],],
-                    ['label' => 'Pending Shops', 'icon' => 'shopping-cart', 'url' => ['/shop/index?status=inactive'],],
-                    ['label' => 'Categories', 'icon' => 'list', 'url' => ['/category/index'],],
-                    ['label' => 'Pending category names', 'icon' => 'list', 'url' => ['/pending-default-category-name'],],
-                    ['label' => 'Items', 'icon' => 'list', 'url' => ['/item'],],
+                    ['label' => 'Person', 'icon' => 'users', 'url' => ['/person']],
+//                    ['label' => 'Users', 'icon' => 'users', 'url' => ['/user']],
+//                    ['label' => 'Shops', 'icon' => 'shopping-cart', 'url' => ['/shop'],],
+//                    ['label' => 'Pending Shops', 'icon' => 'shopping-cart', 'url' => ['/shop/index?status=inactive'],],
+//                    ['label' => 'Categories', 'icon' => 'list', 'url' => ['/category/index'],],
+//                    ['label' => 'Pending category names', 'icon' => 'list', 'url' => ['/pending-default-category-name'],],
+//                    ['label' => 'Items', 'icon' => 'list', 'url' => ['/item'],],
                 ],
             ]
         )?>
