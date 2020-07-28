@@ -18,11 +18,6 @@ $this->title = 'Family Tree';
         <p>Some text in the Modal..</p>
     </div>
 </div>
-<div class="row">
-    <div class="person-body-1">
-        test
-    </div>
-</div>
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
