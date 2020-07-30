@@ -6,6 +6,7 @@ use backend\modules\models\family\Person;
 
 use backend\modules\models\family\SinglePerson;
 use Yii;
+use yii\filters\auth\HttpBearerAuth;
 use yii\filters\Cors;
 use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
@@ -38,7 +39,7 @@ class PersonController extends ActiveController
             'class' => Cors::className(),
             'cors' => [
                 'Origin' => ['*'],
-                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Method' => ['POST', 'GET', 'PATCH', 'PUT'],
                 'Access-Control-Request-Headers' => ['*'],
             ],
         ];
