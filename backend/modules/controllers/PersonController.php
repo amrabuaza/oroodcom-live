@@ -50,7 +50,7 @@ class PersonController extends ActiveController
                 'get-all' => ['GET'],
                 'get-childs-by-parent-id' => ['GET'],
                 'update-user' => ['POST'],
-                'create' => ['POST'],
+                'create-user' => ['POST'],
             ]
         ];
 
@@ -69,7 +69,7 @@ class PersonController extends ActiveController
         return SinglePerson::find()->where(["parent_id" => $id])->all();
     }
 
-    public function actionCreate()
+    public function actionCreateUser()
     {
         $model = new SinglePerson();
 
