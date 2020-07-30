@@ -49,7 +49,7 @@ class PersonController extends ActiveController
             'actions' => [
                 'get-all' => ['GET'],
                 'get-childs-by-parent-id' => ['GET'],
-                'update' => ['PUT'],
+                'update-user' => ['POST'],
                 'create' => ['POST'],
             ]
         ];
@@ -80,7 +80,7 @@ class PersonController extends ActiveController
         return $model;
     }
 
-    public function actionUpdate($id)
+    public function actionUpdateUser($id)
     {
         $model = $this->findModel($id);
 
