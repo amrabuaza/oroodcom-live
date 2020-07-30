@@ -48,6 +48,8 @@ class PersonController extends ActiveController
             'actions' => [
                 'get-all' => ['GET'],
                 'get-childs-by-parent-id' => ['GET'],
+                'update' => ['PUT'],
+                'create' => ['POST'],
             ]
         ];
 
