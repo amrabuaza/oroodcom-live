@@ -16,9 +16,11 @@ use Yii;
  * @property string|null $birth_date
  * @property string|null $avatar
  * @property string|null $nickname
- * @property int $is_live
+ * @property string|null $bio
+ * @property int|null $is_live
  * @property int $is_root
  * @property int|null $parent_id
+ * @property int|null $is_visible
  *
  * @property \backend\models\family\Person $parent
  * @property Person[] $people
@@ -28,6 +30,17 @@ use Yii;
  */
 class SinglePerson extends \yii\db\ActiveRecord
 {
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->is_root = 0;
+            }
+            return true;
+        }
+        return false;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -42,10 +55,10 @@ class SinglePerson extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'is_live', 'is_root'], 'required'],
+            [['name'], 'required'],
             [['birth_date'], 'safe'],
-            [['is_live', 'is_root', 'parent_id'], 'integer'],
-            [['name', 'mother_name', 'avatar', 'nickname'], 'string', 'max' => 255],
+            [['is_live', 'is_visible', 'is_root', 'parent_id'], 'integer'],
+            [['name', 'bio', 'mother_name', 'avatar', 'nickname'], 'string', 'max' => 255],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ];
     }
@@ -65,6 +78,8 @@ class SinglePerson extends \yii\db\ActiveRecord
             'is_live' => Yii::t('app', 'Is Live'),
             'is_root' => Yii::t('app', 'Is Root'),
             'parent_id' => Yii::t('app', 'Parent ID'),
+            'is_visible' => Yii::t('app', 'Is Visible'),
+            'bio' => Yii::t('app', 'Bio'),
         ];
     }
 
